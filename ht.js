@@ -131,3 +131,49 @@ themeToggleBtn.addEventListener('click', () => {
 }
 
  attachCheckboxListeners();
+ const achievement7Day = document.getElementById('achievement-7day'); 
+const habits = JSON.parse(localStorage.getItem('habits')) || [];
+
+habits.forEach(habit => {
+     if (habit.completedDates.length >= 7) {
+        achievement7Day.classList.remove('opacity-50');  
+        achievement7Day.classList.add('shadow-soft-glow-dark');  
+    }
+});
+ const achievementPerfectMonth = document.getElementById('achievement-perfect-month');
+
+habits.forEach(habit => {
+     const today = new Date();
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+
+     const completedThisMonth = habit.completedDates.filter(dateStr => {
+        const date = new Date(dateStr);
+        return date >= startOfMonth && date <= today;
+    });
+
+     if (completedThisMonth.length >= today.getDate()) {
+        achievementPerfectMonth.classList.remove('opacity-50');
+        achievementPerfectMonth.classList.add('shadow-soft-glow-dark');
+    }
+});
+ const achievementEarlyBird = document.getElementById('achievement-early-bird');
+
+habits.forEach(habit => {
+    const earlyHour = 9;  
+    const earlyCompletions = habit.completedDates.filter(dateStr => {
+        const date = new Date(dateStr);
+        return date.getHours() < earlyHour;
+    });
+
+     if (earlyCompletions.length === habit.completedDates.length && habit.completedDates.length > 0) {
+        achievementEarlyBird.classList.remove('opacity-50');
+        achievementEarlyBird.classList.add('shadow-soft-glow-dark');
+    }
+});
+
+ const achievementCreator = document.getElementById('achievement-creator');
+
+if (habits.length >= 10) {  
+    achievementCreator.classList.remove('opacity-50');
+    achievementCreator.classList.add('shadow-soft-glow-dark');
+}
