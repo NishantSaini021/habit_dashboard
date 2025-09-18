@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pro Habit Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script>
+tailwind.config = {
+    darkMode: "class",
+    theme: {
+        extend: {
+            colors: {
+                "background-light": "#e0f2fe",
+                "background-dark": "#0c1427",
+                primary: { DEFAULT: "#2563eb", light: "#60a5fa" },
+                secondary: { green: "#10B981", amber: "#F59E0B", coral: "#EF4444" },
+                "card-light": "rgba(255, 255, 255, 0.6)",
+                "card-dark": "rgba(20, 30, 50, 0.5)",
+                "divider-light": "rgba(107, 114, 128, 0.2)",
+                "divider-dark": "rgba(55, 65, 81, 0.5)",
+                "text-light": "#030712",
+                "text-dark": "#e5e7eb",
+            },
+            fontFamily: { display: ["Inter", "sans-serif"] },
+            borderRadius: { DEFAULT: "0.5rem" },
+            boxShadow: { 'soft-glow-dark': '0 0 15px 0px rgba(96, 165, 250, 0.2)' },
+        },
+    },
+};
+</script>
+<style>
+body { font-family: 'Inter', sans-serif; }
+.glassmorphism {
+    background: var(--tw-bg-card-light);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.dark .glassmorphism {
+    background: var(--tw-bg-card-dark);
+    border: 1px solid var(--tw-border-divider-dark);
+}
+.modern-btn {
+    background: linear-gradient(90deg, #2563eb, #60a5fa);
+    transition: all 0.3s ease;
+}
+.modern-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); }
+.dark .modern-btn { background: linear-gradient(90deg, #1e40af, #3b82f6); }
+.dark .modern-btn:hover { box-shadow: 0 0 20px rgba(96, 165, 250, 0.3); }
+</style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark transition-colors duration-500">
+<div class="min-h-screen" id="app">
+
+<!-- Header -->
+<header class="sticky top-0 z-50 glassmorphism" id="header">
+<div class="container mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex items-center justify-between h-16">
+<div class="flex items-center">
+<span id="logo-icon" class="material-icons text-primary text-3xl mr-2">checklist</span>
+<a id="dashboard-title" class="text-xl font-bold text-gray-900 dark:text-white" href="#">Pro Habit Dashboard</a>
+</div>
+<div class="flex items-center space-x-4">
+<button id="notifications-btn" class="p-2 rounded-full hover:bg-sky-200/50 dark:hover:bg-blue-900/30 transition-colors">
+<span class="material-icons text-gray-600 dark:text-gray-300">notifications</span>
+</button>
+<img id="user-avatar" alt="User avatar" class="h-8 w-8 rounded-full" src="boy.png"/>
+<button id="theme-toggle-btn" class="p-2 rounded-full hover:bg-sky-200/50 dark:hover:bg-blue-900/30 transition-colors">
+<span id="dark-mode-icon" class="material-icons text-gray-600 dark:text-gray-300 dark:hidden">dark_mode</span>
+<span id="light-mode-icon" class="material-icons text-gray-600 dark:text-gray-300 hidden dark:inline">light_mode</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+
+<!-- Main -->
+<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+
+<!-- Hero Section -->
+<section class="text-center py-16" id="hero">
+<h1 id="hero-title1" class="text-5xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-light pb-4">Track Your Habits.</h1>
+<h1 id="hero-title2" class="text-5xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-light">Unlock Your Potential.</h1>
+<p id="hero-subtitle" class="mt-4 text-lg text-slate-600 dark:text-blue-200">Your futuristic personal AI productivity assistant.</p>
+<div class="mt-8">
+<button id="addHabitBtnHero" class="modern-btn text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg">+ Add New Habit</button>
+</div>
+</section>
+
+<!-- Habits Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+<!-- Left Column -->
+<div class="lg:col-span-2 space-y-8">
+
+<!-- Create Habit Card -->
+<div id="habitCreationCard" class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-lg transform hover:scale-[1.02] transition-transform duration-300">
+<h2 id="habitCreationTitle" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Create a New Habit</h2>
+<form id="habitCreationForm" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<input id="habitNameInput" class="w-full bg-white/50 dark:bg-blue-900/30 border-divider-light dark:border-divider-dark rounded-md focus:ring-primary focus:border-primary text-text-light dark:text-text-dark placeholder-slate-500 dark:placeholder-blue-300" placeholder="Habit Name (e.g., Read for 30 mins)" type="text"/>
+<select id="habitFrequencyInput" class="w-full bg-white/50 dark:bg-blue-900/30 border-divider-light dark:border-divider-dark rounded-md focus:ring-primary focus:border-primary text-text-light dark:text-text-dark">
+<option>Daily</option>
+<option>Weekly</option>
+<option>Monthly</option>
+</select>
+<input id="habitGoalInput" class="w-full bg-white/50 dark:bg-blue-900/30 border-divider-light dark:border-divider-dark rounded-md focus:ring-primary focus:border-primary text-text-light dark:text-text-dark placeholder-slate-500 dark:placeholder-blue-300" placeholder="Goal (e.g., 5 times a week)" type="text"/>
+<input id="habitReminderInput" class="w-full bg-white/50 dark:bg-blue-900/30 border-divider-light dark:border-divider-dark rounded-md focus:ring-primary focus:border-primary text-text-light dark:text-text-dark placeholder-slate-500 dark:placeholder-blue-300" placeholder="Reminder" type="time"/>
+<button id="habitAddBtn" class="md:col-span-2 modern-btn text-white font-bold py-2 px-4 rounded-md" type="submit">Add Habit</button>
+</form>
+</div>
+
+<!-- Today's Habits -->
+<div id="todaysHabits" class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-lg">
+<h2 id="todaysHabitsTitle" class="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Today's Habits</h2>
+<ul id="todaysHabitsList" class="space-y-4">
+<li id="habit1-item" class="habitItem flex items-center justify-between p-4 rounded-md bg-white/30 dark:bg-blue-900/20 hover:bg-white/50 dark:hover:bg-blue-900/40 transition-all duration-300 transform hover:scale-[1.03]">
+<div class="flex items-center">
+<input id="habit1-checkbox" class="h-6 w-6 rounded text-primary focus:ring-primary-light border-sky-300 dark:border-blue-700 bg-transparent" type="checkbox"/>
+<label id="habit1-label" class="ml-4 text-lg text-text-light dark:text-text-dark" for="habit1-checkbox">Morning Meditation</label>
+</div>
+<div id="habit1-streak" class="flex items-center space-x-2 text-sm text-slate-600 dark:text-blue-200">
+<span class="material-icons text-secondary-amber text-base">local_fire_department</span>
+<span>Streak: 12 days</span>
+</div>
+</li>
+
+<li id="habit2-item" class="habitItem flex items-center justify-between p-4 rounded-md bg-white/30 dark:bg-blue-900/20 hover:bg-white/50 dark:hover:bg-blue-900/40 transition-all duration-300 transform hover:scale-[1.03]">
+<div class="flex items-center">
+<input id="habit2-checkbox" class="h-6 w-6 rounded text-primary focus:ring-primary-light border-sky-300 dark:border-blue-700 bg-transparent" type="checkbox"/>
+<label id="habit2-label" class="ml-4 text-lg text-text-light dark:text-text-dark" for="habit2-checkbox">30 min workout</label>
+</div>
+<div id="habit2-streak" class="flex items-center space-x-2 text-sm text-slate-600 dark:text-blue-200">
+<span class="material-icons text-secondary-green text-base">local_fire_department</span>
+<span>Streak: 5 days</span>
+</div>
+</li>
+
+<li id="habit3-item" class="habitItem flex items-center justify-between p-4 rounded-md bg-white/30 dark:bg-blue-900/20 hover:bg-white/50 dark:hover:bg-blue-900/40 transition-all duration-300 transform hover:scale-[1.03]">
+<div class="flex items-center">
+<input id="habit3-checkbox" checked class="h-6 w-6 rounded text-primary focus:ring-primary-light border-sky-300 dark:border-blue-700 bg-transparent" type="checkbox"/>
+<label id="habit3-label" class="ml-4 text-lg text-text-light dark:text-text-dark line-through" for="habit3-checkbox">Read 1 chapter</label>
+</div>
+<div id="habit3-streak" class="flex items-center space-x-2 text-sm text-slate-600 dark:text-blue-200">
+<span class="material-icons text-secondary-coral text-base">whatshot</span>
+<span>Streak: 2 days</span>
+</div>
+</li>
+</ul>
+</div>
+</div>
+
+<!-- Right Column: Analytics -->
+<div class="space-y-8">
+<div id="analytics">
+
+<!-- Completion Rate -->
+<div id="completionRateCard" class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-lg">
+<h3 id="completionRateTitle" class="font-bold text-lg mb-2 text-gray-900 dark:text-white">Completion Rate</h3>
+<div id="completionRateBarContainer" class="w-full bg-sky-200 dark:bg-blue-900/50 rounded-full h-4">
+<div id="completionRateBar" class="bg-gradient-to-r from-primary to-primary-light h-4 rounded-full" style="width: 75%"></div>
+</div>
+<p id="completionRateValue" class="text-right mt-2 font-bold text-lg text-primary-light">75%</p>
+</div>
+
+<!-- Weekly Summary -->
+<div id="weeklySummaryCard" class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-lg">
+<h3 id="weeklySummaryTitle" class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Weekly Summary</h3>
+<div id="weeklySummaryBars" class="flex justify-between items-end h-32">
+<div id="bar-M" class="w-1/7 text-center"><div class="bg-primary h-16 rounded-t-sm" style="height: 4rem"></div><span class="text-xs">M</span></div>
+<div id="bar-T" class="w-1/7 text-center"><div class="bg-primary h-24 rounded-t-sm" style="height: 6rem"></div><span class="text-xs">T</span></div>
+<div id="bar-W" class="w-1/7 text-center"><div class="bg-primary h-20 rounded-t-sm" style="height: 5rem"></div><span class="text-xs">W</span></div>
+<div id="bar-T2" class="w-1/7 text-center"><div class="bg-primary h-28 rounded-t-sm" style="height: 7rem"></div><span class="text-xs">T</span></div>
+<div id="bar-F" class="w-1/7 text-center"><div class="bg-primary-light h-12 rounded-t-sm" style="height: 3rem"></div><span class="text-xs">F</span></div>
+<div id="bar-S" class="w-1/7 text-center"><div class="bg-primary-light h-16 rounded-t-sm" style="height: 4rem"></div><span class="text-xs">S</span></div>
+<div id="bar-S2" class="w-1/7 text-center"><div class="bg-primary-light h-24 rounded-t-sm" style="height: 6rem"></div><span class="text-xs">S</span></div>
+</div>
+</div>
+
+<!-- Consistency Score -->
+<div id="consistencyScoreCard" class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-lg">
+<h3 id="consistencyScoreTitle" class="font-bold text-lg mb-2 text-gray-900 dark:text-white">Consistency Score</h3>
+<div id="consistencyScoreBarContainer" class="w-full bg-sky-200 dark:bg-blue-900/50 rounded-full h-4">
+<div id="consistencyScoreBar" class="bg-gradient-to-r from-secondary-green to-primary h-4 rounded-full" style="width: 92%"></div>
+</div>
+<p id="consistencyScoreValue" class="text-right mt-2 font-bold text-lg text-secondary-green">92%</p>
+</div>
+
+</div>
+</div>
+</div>
+
+<!-- Achievements Section -->
+<section id="achievements" class="mt-16">
+<h2 id="achievementsTitle" class="text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">Achievements Unlocked</h2>
+<div id="achievementsGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6 text-center">
+
+<div id="achv-7day-streak" class="achievement-card bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300"> 
+<span class="material-icons text-5xl text-yellow-400">emoji_events</span>
+<p class="font-bold mt-2">7-Day Streak</p>
+<p class="text-xs text-slate-600 dark:text-blue-200">Completed all habits for 7 days in a row.</p>
+</div>
+
+<div id="achv-perfect-month" class="achievement-card bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300"> 
+<span class="material-icons text-5xl text-gray-400">military_tech</span>
+<p class="font-bold mt-2">Perfect Month</p>
+<p class="text-xs text-slate-600 dark:text-blue-200">Didn't miss a single habit in a month.</p>
+</div>
+
+<div id="achv-early-bird" class="achievement-card bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-lg transform hover:-translate-y-2 transition-transform duration-300"> 
+<span class="material-icons text-5xl text-yellow-500">star</span>
+<p class="font-bold mt-2">Early Bird</p>
+<p class="text-xs text-slate-600 dark:text-blue-200">Completed all habits before 9 AM.</p>
+</div>
+
+<div id="achv-master-habits" class="achievement-card bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-lg opacity-50"> 
+<span class="material-icons text-5xl text-gray-500">lock</span>
+<p class="font-bold mt-2">Master of Habits</p>
+<p class="text-xs text-slate-600 dark:text-blue-200">Reach a 100-day streak.</p>
+</div>
+
+<div id="achv-creator" class="achievement-card bg-card-light dark:bg-card-dark p-4 rounded-lg shadow-lg opacity-50"> 
+<span class="material-icons text-5xl text-gray-500">lock</span>
+<p class="font-bold mt-2">Creator</p>
+<p class="text-xs text-slate-600 dark:text-blue-200">Create 10 habits.</p>
+</div>
+
+</div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer id="footer" class="mt-16 text-center text-sm text-slate-600 dark:text-blue-200 py-6 border-t border-divider-light dark:border-divider-dark">
+<p id="footer-copy">© 2025 Pro Habit Dashboard. Made with Tea in hand by Nishant Saini.</p>
+<p class="mt-1" id="footer-links"><a class="hover:text-primary" href="#">Credits</a> | <a class="hover:text-primary" href="#">Contact</a></p>
+</footer>
+
+<!-- Theme Toggle Script -->
+<script src="ht.js"></script>
+</script>
+
+</div>
+</body>
+</html>
