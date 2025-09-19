@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-<head>
+<head><link rel="icon" href="favicon.ico" type="image/x-icon" />
+
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Pro Habit Dashboard</title>
@@ -175,19 +176,15 @@ body { font-family: 'Inter', sans-serif; }
 <p id="completionRateValue" class="text-right mt-2 font-bold text-lg text-primary-light">75%</p>
 </div>
 
-<!-- Weekly Summary -->
 <div id="weeklySummaryCard" class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-lg">
-<h3 id="weeklySummaryTitle" class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Weekly Summary</h3>
-<div id="weeklySummaryBars" class="flex justify-between items-end h-32">
-<div id="bar-M" class="w-1/7 text-center"><div class="bg-primary h-16 rounded-t-sm" style="height: 4rem"></div><span class="text-xs">M</span></div>
-<div id="bar-T" class="w-1/7 text-center"><div class="bg-primary h-24 rounded-t-sm" style="height: 6rem"></div><span class="text-xs">T</span></div>
-<div id="bar-W" class="w-1/7 text-center"><div class="bg-primary h-20 rounded-t-sm" style="height: 5rem"></div><span class="text-xs">W</span></div>
-<div id="bar-T2" class="w-1/7 text-center"><div class="bg-primary h-28 rounded-t-sm" style="height: 7rem"></div><span class="text-xs">T</span></div>
-<div id="bar-F" class="w-1/7 text-center"><div class="bg-primary-light h-12 rounded-t-sm" style="height: 3rem"></div><span class="text-xs">F</span></div>
-<div id="bar-S" class="w-1/7 text-center"><div class="bg-primary-light h-16 rounded-t-sm" style="height: 4rem"></div><span class="text-xs">S</span></div>
-<div id="bar-S2" class="w-1/7 text-center"><div class="bg-primary-light h-24 rounded-t-sm" style="height: 6rem"></div><span class="text-xs">S</span></div>
+  <h3 id="weeklySummaryTitle" class="font-bold text-lg mb-4 text-gray-900 dark:text-white">Weekly Summary</h3>
+  
+  <!-- Chart Container -->
+  <div class="chart-container" style="position: relative; height:220px; padding:10px;">
+    <canvas id="weeklyChart"></canvas>
+  </div>
 </div>
-</div>
+
 
 <!-- Consistency Score -->
 <div id="consistencyScoreCard" class="bg-card-light dark:bg-card-dark p-6 rounded-lg shadow-lg">
@@ -284,9 +281,9 @@ body { font-family: 'Inter', sans-serif; }
 
 
 
-<!-- Theme Toggle Script -->
-<script src="ht.js">
-</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="ht.js"></script>
+</body>
 
 </div>
 </body>
