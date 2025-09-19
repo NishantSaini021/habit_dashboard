@@ -86,7 +86,7 @@ body { font-family: 'Inter', sans-serif; }
 <section class="text-center py-16" id="hero">
 <h1 id="hero-title1" class="text-5xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-light pb-4">Track Your Habits.</h1>
 <h1 id="hero-title2" class="text-5xl md:text-7xl font-black bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary-light">Unlock Your Potential.</h1>
-<p id="hero-subtitle" class="mt-4 text-lg text-slate-600 dark:text-blue-200">Your futuristic personal productivity assistant.</p>
+<p id="hero-subtitle" class="mt-4 text-lg text-slate-600 dark:text-blue-200">Your futuristic personal AI productivity assistant.</p>
 <div class="mt-8">
 <button id="addHabitBtnHero" class="modern-btn text-white font-bold py-3 px-8 rounded-full text-lg shadow-lg">+ Add New Habit</button>
 </div>
@@ -152,6 +152,14 @@ body { font-family: 'Inter', sans-serif; }
 </li>
 </ul>
 </div>
+</div>
+<!-- Congratulation Popup -->
+<div id="congratsPopup" class="fixed inset-0 flex items-center justify-center bg-black/50 opacity-0 pointer-events-none transition-opacity duration-300 z-50">
+  <div class="bg-white dark:bg-blue-900 p-8 rounded-xl shadow-lg text-center">
+    <span class="material-icons text-6xl text-yellow-400">celebration</span>
+    <h2 class="text-2xl font-bold mt-4 text-gray-900 dark:text-white">Congratulations!</h2>
+    <p class="mt-2 text-gray-700 dark:text-blue-200">You completed a habit! Keep it up 💪</p>
+  </div>
 </div>
 
 <!-- Right Column: Analytics -->
@@ -235,14 +243,51 @@ body { font-family: 'Inter', sans-serif; }
 </main>
 
 <!-- Footer -->
-<footer id="footer" class="mt-16 text-center text-sm text-slate-600 dark:text-blue-200 py-6 border-t border-divider-light dark:border-divider-dark">
-<p id="footer-copy">© 2025 Pro Habit Dashboard. Made with Tea in hand by Nishant Saini.</p>
-<p class="mt-1" id="footer-links"><a class="hover:text-primary" href="#">Credits</a> | <a class="hover:text-primary" href="#">Contact</a></p>
+<footer id="footer" class="mt-16 py-6 border-t border-divider-light dark:border-divider-dark bg-card-light dark:bg-card-dark transition-colors duration-500 relative">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between">
+    
+    <!-- Left: Copy -->
+    <p class="text-sm text-slate-600 dark:text-blue-200 mb-2 md:mb-0">
+      © 2025 Pro Habit Dashboard. Made by Nishant Saini.
+    </p>
+
+    <!-- Right: Links -->
+    <div class="flex space-x-4 text-sm">
+      <a href="#" class="hover:text-primary dark:hover:text-primary-light transition-colors">Credits</a>
+      <a href="mailto:Nishantsaini021.work@gmail.com" class="hover:text-primary dark:hover:text-primary-light transition-colors">Contact</a>
+      <a href="#" class="hover:text-primary dark:hover:text-primary-light transition-colors">Privacy</a>
+    </div>
+  </div>
+
+  <!-- Back to Top Button -->
+  <button id="backToTopBtn" class="fixed bottom-6 right-6 p-3 bg-primary text-white rounded-full shadow-lg hover:bg-primary-light transition-all duration-300 hidden">
+    <span class="material-icons">arrow_upward</span>
+  </button>
 </footer>
 
+<script>
+  // Back-to-top button
+  const backToTopBtn = document.getElementById('backToTopBtn');
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.remove('hidden');
+    } else {
+      backToTopBtn.classList.add('hidden');
+    }
+  });
+
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
+
+
+
 <!-- Theme Toggle Script -->
-<script src="ht.js"></script>
+<script src="ht.js">
 </script>
 
 </div>
-</body>git push -u origin main --force
+</body>
+</html>
